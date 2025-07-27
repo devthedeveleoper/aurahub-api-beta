@@ -48,17 +48,15 @@ async def remove_remote_upload(upload_id: str):
 
 @router.get("/status", response_model=dict[str, RemoteUploadStatus])
 async def get_remote_upload_status(
-    upload_id: str | None = Query(default=None, alias="id", description="A specific upload ID."),
-    limit: int | None = Query(default=None, description="Limit the number of results.")
+    upload_id: str = Query(alias="id", description="A specific remote upload ID to check."),
+    limit: int | None = Query(default=None, description="Limit the number of results (optional).")
 ):
     """
-    Check the status of one or more remote uploads.
+    Check the status of a specific remote upload.
     """
-    params = {}
-    if upload_id:
-        params["id"] = upload_id
-    if limit:
-        params["limit"] = limit
+    params = {"id": upload_id}
+    if limit is not None:
+        params["limit"] = str(limit)
 
     result = await streamtape_client._make_request(
         method="GET",
