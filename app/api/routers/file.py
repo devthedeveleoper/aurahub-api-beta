@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Query, status
+from pydantic import AnyHttpUrl
 
 from app.core.client import streamtape_client
-# Request models are no longer needed for this router
 from app.models.responses import FolderContent, CreateFolderResponse
 
 router = APIRouter(
@@ -79,3 +79,14 @@ async def delete_file(file_id: str):
     """Deletes a file."""
     result = await streamtape_client._make_request("GET", "/file/delete", {"file": file_id})
     return {"success": result}
+
+# ----- To Get Thumnails -----
+@router.get("/files/thumbnail/{file_id}", response_model=dict[str, AnyHttpUrl])
+async def get_file_thumbnail(file_id: str):
+    """Gets the thumbnail URL for a specific file."""
+    thumbnail_url = await streamtape_client._make_request(
+        "GET",
+        "/file/getsplash",
+        {"file": file_id}
+    )
+    return {"thumbnail_url": thumbnail_url}
