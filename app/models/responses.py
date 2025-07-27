@@ -44,3 +44,27 @@ class RemoteUploadStatus(BaseModel):
     extid: str | bool | None = None
     linkid: str | None = None
     url: AnyHttpUrl | bool | None = None
+
+class ListedFolder(BaseModel):
+    """Response model for a folder within a folder list."""
+    id: str
+    name: str
+
+class ListedFile(BaseModel):
+    """Response model for a file within a folder list."""
+    name: str
+    size: int
+    link: AnyHttpUrl
+    created_at: int
+    downloads: int
+    linkid: str
+    status: str | None = None
+
+class FolderContent(BaseModel):
+    """Response model for the full content of a folder."""
+    folders: list[ListedFolder]
+    files: list[ListedFile]
+
+class CreateFolderResponse(BaseModel):
+    """Response model for a newly created folder's ID."""
+    folderid: str
