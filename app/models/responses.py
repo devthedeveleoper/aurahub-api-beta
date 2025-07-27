@@ -41,5 +41,6 @@ class RemoteUploadStatus(BaseModel):
     folderid: str
     added: str
     last_update: str
-    extid: str | bool
-    url: AnyHttpUrl | bool
+    extid: str | bool | None = None
+    linkid: str | None = None
+    url: AnyHttpUrl | bool | None = None
