@@ -25,3 +25,21 @@ class UploadURL(BaseModel):
     """Response model for getting an upload URL."""
     url: AnyHttpUrl
     valid_until: str
+
+class RemoteUploadAdd(BaseModel):
+    """Response model for a newly added remote upload."""
+    id: str
+    folderid: str
+
+class RemoteUploadStatus(BaseModel):
+    """Response model for the status of a single remote upload."""
+    id: str
+    remoteurl: AnyHttpUrl
+    status: str
+    bytes_loaded: int | None = None
+    bytes_total: int | None = None
+    folderid: str
+    added: str
+    last_update: str
+    extid: str | bool
+    url: AnyHttpUrl | bool

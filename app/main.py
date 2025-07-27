@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.core.client import streamtape_client
-from app.api.routers import stream, upload
+from app.api.routers import stream, upload, remote
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -27,3 +27,4 @@ async def read_root():
 
 app.include_router(stream.router)
 app.include_router(upload.router)
+app.include_router(remote.router) 
