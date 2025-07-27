@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.core.client import streamtape_client
-from app.api.routers import stream
+from app.api.routers import stream, upload
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -26,3 +26,4 @@ async def read_root():
     return {"message": "Welcome to the Streamtape API Wrapper. See /docs for endpoints."}
 
 app.include_router(stream.router)
+app.include_router(upload.router)

@@ -20,3 +20,8 @@ class FileInfo(BaseModel):
     mime_type: str | None = None
     converted: bool
     status: int
+
+class UploadURL(BaseModel):
+    """Response model for getting an upload URL."""
+    url: AnyHttpUrl
+    valid_until: str
